@@ -79,7 +79,7 @@ namespace Drunkard
             //    Console.WriteLine(ex);
             //}
 
-          
+            karta[10, 67] = "111";
 
 
             //for (int i = 0; i < 9; i++)

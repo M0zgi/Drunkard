@@ -45,16 +45,17 @@ namespace Drunkard
                 if (col >= 0 && col < w && row >= 0 && row < h)
                     return AllSuit[col, row];
                 else
-                    return "Выход за пределы массива";
-
-                
-
-
+                    return "Выход за пределы массива";     
             }
             
             set //Мутатор
-            { 
-                AllSuit[col, row] = value; 
+            {
+                var w = AllSuit.GetLength(0);
+                var h = AllSuit.GetLength(1);
+                if (col >= 0 && col < w && row >= 0 && row < h)
+                    AllSuit[col, row] = value;
+                else
+                    Console.WriteLine("Выход за пределы массива");
             }
         }
 
