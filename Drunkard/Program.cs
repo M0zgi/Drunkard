@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Drunkard
 {
     class Program
     {
+        //алгоритм сортировки массива в случайном порядке (методом Фишера – Йетса)
         public static void Shuffle<T>(T[] arr)
         {
             Random rand = new Random();
@@ -47,12 +50,24 @@ namespace Drunkard
             //    Console.WriteLine(item);
             //}
 
-            Shuffle(arr);
+            //List<Karta> list = new List<Karta>();
 
-            foreach (var item in arr)
-            {
-                Console.WriteLine(item);
-            }
+            //Dictionary<string, string> openWith = new Dictionary<string, string>();
+
+            //openWith.Add("txt", "notepad.exe");
+            //openWith.Add("txt", "paint.exe");
+
+            //foreach (var item in openWith)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //Shuffle(arr);
+
+            //foreach (var item in arr)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
             //try
             //{
@@ -64,7 +79,7 @@ namespace Drunkard
             //    Console.WriteLine(ex);
             //}
 
-
+          
 
 
             //for (int i = 0; i < 9; i++)

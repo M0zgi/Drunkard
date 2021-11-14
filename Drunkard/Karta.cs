@@ -38,8 +38,24 @@ namespace Drunkard
         //Индексатор
         public string this[int col, int row]
         {
-            get { return AllSuit[col,row]; }
-            set { AllSuit[col, row] = value; }
+            get //Аксессор
+            {
+                var w = AllSuit.GetLength(0); 
+                var h = AllSuit.GetLength(1);
+                if (col >= 0 && col < w && row >= 0 && row < h)
+                    return AllSuit[col, row];
+                else
+                    return "Выход за пределы массива";
+
+                
+
+
+            }
+            
+            set //Мутатор
+            { 
+                AllSuit[col, row] = value; 
+            }
         }
 
         public string Name { get; set; }
