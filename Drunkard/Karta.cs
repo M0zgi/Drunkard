@@ -62,6 +62,9 @@ namespace Drunkard
         public string Name { get; set; }
         public string Suit { get; set; }
 
+        //вес карты
+        public int Weight { get; set; }
+
         public void FillCard()
         {
             for (int i = 0; i < 9; i++)
