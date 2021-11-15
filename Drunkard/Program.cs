@@ -10,8 +10,8 @@ namespace Drunkard
 {
     class Program
     {
-        //алгоритм сортировки массива в случайном порядке (методом Фишера – Йетса)
-        //public static void Shuffle<T>(T[]  arr)
+        ////алгоритм сортировки массива в случайном порядке (методом Фишера – Йетса)
+        //public static void Shuffle<T>(T[] arr)
         //{
         //    Random rand = new Random();
 
@@ -25,38 +25,117 @@ namespace Drunkard
         //    }
         //}
 
-        //public static void Shuffle<T>(T[,] arr)
-        //{
-        //    Random rand = new Random();
+        public static void Shuffle<T>(T[] arr) 
+        {
+            Random rand = new Random();
 
-        //    for (int i = arr.GetLength(0) - 1; i >= 1; i--)
-        //    {
-        //        int k = rand.Next(i + 1);
+            for (int i = arr.Length - 1; i >= 1; i--)
+            {
+                int j = rand.Next(i + 1);
 
-        //        for (int j = arr.GetLength(1) - 1; i >= 1; i--)
-        //        {
-        //            T tmp = arr[i][k];
-        //            arr[k] = arr[i];
-        //            arr[i] = tmp;
-        //        }
+                T tmp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = tmp;
+            }
+        }
 
-        //    }
-        //}
         static void Main(string[] args)
         {
             DeckOfCards36 deckOfCards36 = new DeckOfCards36();
 
-            Random random = new Random();
+            foreach (var item in deckOfCards36.AllSuitProperty)
+            {
+                Console.WriteLine(item);
+            }
+           
 
-            deckOfCards36.FillCard();
-            // karta.PrintAllSuit();
+            Console.WriteLine(new string('-', 20));
+
+            //deckOfCards36.Shuffle(deckOfCards36.AllSuitProperty.ToArray());
 
             Karta[] arr = new Karta[36];
-            int count = 0;
+            arr = deckOfCards36.AllSuitProperty.ToArray();
 
-            ArrayList lst = new ArrayList();
+            deckOfCards36.Shuffle(arr);
 
-            deckOfCards36.Arr(lst);
+            foreach (var item in arr)
+            {
+                Console.WriteLine(item);
+            }
+
+
+
+            //Karta[] arr = new Karta[36];
+
+            //arr = deckOfCards36.AllSuitProperty.ToArray();
+
+            //Shuffle(arr);
+
+            //foreach (var item in arr)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //deckOfCards36.Shuffle(arr);
+
+         
+            //foreach (var item in deckOfCards36.AllSuitProperty)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            ////deckOfCards36.Shuffle(deckOfCards36.AllSuitProperty.ToArray());
+            //Console.WriteLine(new string('-', 20));
+            //Shuffle(arr);
+
+            //foreach (var item in arr)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //deckOfCards36.AllSuitPropertyS(arr);
+
+            //Console.WriteLine(new string('-', 20));
+
+
+
+            // deckOfCards36.PrintAllSuit();
+
+            //List<Karta> kartas = new List<Karta>();
+
+            //deckOfCards36.Arr(ref kartas);
+
+            //foreach (var item in kartas)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+
+
+
+
+
+
+            //Random random = new Random();
+
+
+            //deckOfCards36.FillCard();
+            // karta.PrintAllSuit();
+
+            // List<Karta> arr = new List<Karta>();
+            // (DeckOfCards36)arr = deckOfCards36;
+
+            //Console.WriteLine(deckOfCards36);
+
+
+
+            //Karta[] arr = new Karta[36];
+            //int count = 0;
+
+            //ArrayList lst = new ArrayList();
+
+            // deckOfCards36.Arr(lst);
 
             //for (int i = 0; i < 9; i++)
             //{
@@ -80,23 +159,23 @@ namespace Drunkard
             //    }
             //}
 
-            foreach (var item in lst)
-            {
-                Console.WriteLine(item);                
-            }
+            //foreach (var item in lst)
+            //{
+            //    Console.WriteLine(item);                
+            //}
 
-            Console.WriteLine(new string ('-', 20));
+            //Console.WriteLine(new string ('-', 20));
 
-            //Shuffle(lst.ToArray());
+            ////Shuffle(lst.ToArray());
 
-            // lst.Reverse();
+            //// lst.Reverse();
 
-            deckOfCards36.Shuffle(lst.ToArray());
+            //deckOfCards36.Shuffle(lst.ToArray());
 
-            foreach (var item in lst)
-            {
-                Console.WriteLine(item);                
-            }
+            //foreach (var item in lst)
+            //{
+            //    Console.WriteLine(item);                
+            //}
 
             //List<Karta> list = new List<Karta>();
 

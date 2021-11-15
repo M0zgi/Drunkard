@@ -65,12 +65,7 @@ namespace Drunkard
         static public string NAME_Jack { get => "Валет"; }
         static public string NAME_Queen { get => "Дама"; }
         static public string NAME_King { get => "Король"; }
-        static public string NAME_Ace { get => "Туз"; }
-
-        //public void FillCard()
-        //{
-
-        //}    
+        static public string NAME_Ace { get => "Туз"; }      
 
         public override string ToString()
         {
@@ -89,44 +84,17 @@ namespace Drunkard
 
         Karta karta;
 
-        private Karta[,] AllSuit = new Karta[9, 4];
+        private List<Karta> AllSuit = new List<Karta>();
 
-        //Индексатор
-        public Karta this[int col, int row]
-        {
-            get //Аксессор
-            {
-                var w = AllSuit.GetLength(0);
-                var h = AllSuit.GetLength(1);
-                if (col >= 0 && col < w && row >= 0 && row < h)
-                    return AllSuit[col, row];
-                else
-                    return karta = new Karta("Неизвестная карта", "", 0, 0);
-            }
-
-            set //Мутатор
-            {
-                var w = AllSuit.GetLength(0);
-                var h = AllSuit.GetLength(1);
-                if (col >= 0 && col < w && row >= 0 && row < h)
-                    AllSuit[col, row] = value;
-                else
-                    Console.WriteLine("Выход за пределы массива");
-            }
-        }
+        public List<Karta> AllSuitProperty { get => AllSuit; }
+       // public List<Karta> AllSuitPropertyS(Karta[] arr) { this.AllSuit = arr; }
 
         public void FillCard()
         {
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 4; j++)
-                {
-                    //NameKart Name = (NameKart)Enum.GetValues(typeof(NameKart)).GetValue(i);
-                    // SuitKart Suit = (SuitKart)Enum.GetValues(typeof(SuitKart)).GetValue(j);
-
-                    //AllSuit[i, j] = (NameKart)Enum.GetValues(typeof(NameKart)).GetValue(i) + " " + (SuitKart)Enum.GetValues(typeof(SuitKart)).GetValue(j);
-                              
-
+                {           
                     string suite = null;
                     if (j == 0)
                         suite = "(трефа)";
@@ -141,99 +109,145 @@ namespace Drunkard
                     if (i == (int)NameKart.Six)
                     {                        
                         karta = new Karta(Karta.NAME_6, suite, 6, 6);
-                        AllSuit[i, j] = karta;                        
+                        AllSuit.Add(karta);                        
                     }
 
                     if (i == (int)NameKart.Seven)
                     {
                         karta = new Karta(Karta.NAME_7, suite, 7, 7);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Eight)
                     {
                         karta = new Karta(Karta.NAME_8, suite, 8, 8);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Nine)
                     {
                         karta = new Karta(Karta.NAME_9, suite, 9, 9);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Ten)
                     {
                         karta = new Karta(Karta.NAME_10, suite, 10, 10);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Jack)
                     {
                         karta = new Karta(Karta.NAME_Jack, suite, 11, 2);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Queen)
                     {
                         karta = new Karta(Karta.NAME_Queen, suite, 12, 3);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.King)
                     {
                         karta = new Karta(Karta.NAME_King, suite, 13, 4);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Ace)
                     {
                         karta = new Karta(Karta.NAME_Ace, suite, 15, 11);
-                        AllSuit[i, j] = karta;
+                        AllSuit.Add(karta);
                     }
                 }
             }
         }
 
-        public void Arr(ArrayList lst)
+        public void Arr(ref List<Karta> lst)
         {
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    lst.Add(new Karta(this[i, j]._name, this[i, j]._suit, this[i, j]._weight, this[i, j]._point));
-
-                    //lst[count]._name = deckOfCards36[i, j]._name;
-                    //lst[count]._suit = deckOfCards36[i, j]._suit;
-                    //lst[count]._weight = deckOfCards36[i, j]._weight;
-                    //count++;
-                }
-            }
+            lst = this.AllSuit;
         }
 
-        public void PrintAllSuit()
+        public override string ToString()
         {
-            for (int i = 0; i < 9; i++)
-            {
-                for (int j = 0; j < 4; j++)
-                {
-                    Console.WriteLine(AllSuit[i, j]);
-                }
-            }
+            return $"Имя карты { karta._name}, Масть {karta._suit}, Количество очков {karta._point}";
         }
 
-        public void Shuffle<T>(T[] arr)
+        //public void Shuffle<T>(T[] arr)
+        //{
+        //    Random rand = new Random();
+
+        //    for (int i = arr.Length - 1; i >= 1; i--)
+        //    {
+        //        int j = rand.Next(i + 1);
+
+        //        T tmp = arr[j];
+        //        arr[j] = arr[i];
+        //        arr[i] = tmp;
+        //    }
+        //}
+
+        ////рабочий вариант
+        //public void Shuffle<T>(T[] arr)
+        //{
+        //    Random rand = new Random();
+
+        //    for (int i = arr.Length - 1; i >= 1; i--)
+        //    {
+        //        int j = rand.Next(i + 1);
+
+        //        T tmp = arr[j];
+        //        arr[j] = arr[i];
+        //        arr[i] = tmp;
+        //    }
+
+        //    //AllSuit = arr as List<Karta>;
+        //}
+
+        public void Shuffle()
         {
             Random rand = new Random();
 
-            for (int i = arr.Length - 1; i >= 1; i--)
+            List<Karta> tmp = new List<Karta>();
+
+            for (int i = this.AllSuit.Count; i >= 1; i--)
             {
                 int j = rand.Next(i + 1);
 
-                T tmp = arr[j];
+                tmp = this.AllSuit[j];
                 arr[j] = arr[i];
                 arr[i] = tmp;
             }
+
+            //AllSuit = arr as List<Karta>;
         }
     }
 }
+
+
+// //реализация заполнения колоды карт в двумерный массив и доступ к полям объекта класса
+// private Karta[,] AllSuit = new Karta[9, 4];
+
+////Индексатор
+//public Karta this[int col, int row]
+//{
+//    get //Аксессор
+//    {
+//        var w = AllSuit.GetLength(0);
+//        var h = AllSuit.GetLength(1);
+//        if (col >= 0 && col < w && row >= 0 && row < h)
+//            return AllSuit[col, row];
+//        else
+//            return karta = new Karta("Неизвестная карта", "", 0, 0);
+//    }
+
+//    set //Мутатор
+//    {
+//        var w = AllSuit.GetLength(0);
+//        var h = AllSuit.GetLength(1);
+//        if (col >= 0 && col < w && row >= 0 && row < h)
+//            AllSuit[col, row] = value;
+//        else
+//            Console.WriteLine("Выход за пределы массива");
+//    }
+//}
