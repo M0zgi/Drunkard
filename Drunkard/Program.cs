@@ -11,44 +11,92 @@ namespace Drunkard
     class Program
     {
         //алгоритм сортировки массива в случайном порядке (методом Фишера – Йетса)
-        public static void Shuffle<T>(T[] arr)
-        {
-            Random rand = new Random();
+        //public static void Shuffle<T>(T[]  arr)
+        //{
+        //    Random rand = new Random();
 
-            for (int i = arr.Length - 1; i >= 1; i--)
-            {
-                int j = rand.Next(i + 1);
+        //    for (int i = arr.Length - 1; i >= 1; i--)
+        //    {
+        //        int j = rand.Next(i + 1);
 
-                T tmp = arr[j];
-                arr[j] = arr[i];
-                arr[i] = tmp;
-            }
-        }
+        //        T tmp = arr[j];
+        //        arr[j] = arr[i];
+        //        arr[i] = tmp;
+        //    }
+        //}
+
+        //public static void Shuffle<T>(T[,] arr)
+        //{
+        //    Random rand = new Random();
+
+        //    for (int i = arr.GetLength(0) - 1; i >= 1; i--)
+        //    {
+        //        int k = rand.Next(i + 1);
+
+        //        for (int j = arr.GetLength(1) - 1; i >= 1; i--)
+        //        {
+        //            T tmp = arr[i][k];
+        //            arr[k] = arr[i];
+        //            arr[i] = tmp;
+        //        }
+
+        //    }
+        //}
         static void Main(string[] args)
         {
-            Karta karta = new Karta();
+            DeckOfCards36 deckOfCards36 = new DeckOfCards36();
 
             Random random = new Random();
 
-            karta.FillCard();
+            deckOfCards36.FillCard();
             // karta.PrintAllSuit();
 
-            string[] arr = new string [36];
+            Karta[] arr = new Karta[36];
             int count = 0;
 
-            for (int i = 0; i < 9; i++)
+            ArrayList lst = new ArrayList();
+
+            deckOfCards36.Arr(lst);
+
+            //for (int i = 0; i < 9; i++)
+            //{
+            //    for (int j = 0; j < 4; j++)
+            //    {
+            //        arr[count] = deckOfCards36[i, j]._name + " " + deckOfCards36[i, j]._suit;
+            //        count++;
+            //    }
+            //}
+
+            //for (int i = 0; i < 9; i++)
+            //{
+            //    for (int j = 0; j < 4; j++)
+            //    {
+            //        lst.Add(new Karta(deckOfCards36[i, j]._name, deckOfCards36[i, j]._suit, deckOfCards36[i, j]._weight, deckOfCards36[i, j]._point));
+
+            //        //lst[count]._name = deckOfCards36[i, j]._name;
+            //        //lst[count]._suit = deckOfCards36[i, j]._suit;
+            //        //lst[count]._weight = deckOfCards36[i, j]._weight;
+            //        //count++;
+            //    }
+            //}
+
+            foreach (var item in lst)
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    arr[count] = karta[i, j];
-                    count++;
-                }
+                Console.WriteLine(item);                
             }
 
-            //foreach (var item in arr)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            Console.WriteLine(new string ('-', 20));
+
+            //Shuffle(lst.ToArray());
+
+            // lst.Reverse();
+
+            deckOfCards36.Shuffle(lst.ToArray());
+
+            foreach (var item in lst)
+            {
+                Console.WriteLine(item);                
+            }
 
             //List<Karta> list = new List<Karta>();
 
@@ -79,7 +127,7 @@ namespace Drunkard
             //    Console.WriteLine(ex);
             //}
 
-            karta[10, 67] = "111";
+            //deckOfCards36[10, 67] = "111";
 
 
             //for (int i = 0; i < 9; i++)
