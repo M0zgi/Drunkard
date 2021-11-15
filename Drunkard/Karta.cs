@@ -30,7 +30,7 @@ namespace Drunkard
         Hearts,
         Spades
     }
-    interface DeckOfCards
+    interface IDeckOfCards
     {
         //создание колоды карт
         void FillCard();
@@ -40,17 +40,15 @@ namespace Drunkard
         
         //свой-во доступа к карте в колоде
         List<Karta> AllSuitProperty { get; }
-
-       // bool _Equals(Karta karta);
     }
 
-    interface OneKarta
+    interface IKarta
     {
         //сравнение карт
         bool _Equals(Karta karta);
     }
 
-    class Karta: OneKarta
+    class Karta: IKarta
     {        
         public Karta(string name, string suit, int weihgt, int point)
         {
@@ -102,7 +100,7 @@ namespace Drunkard
         }
     }
 
-    class DeckOfCards36: DeckOfCards
+    class DeckOfCards36: IDeckOfCards
     {
         public DeckOfCards36()
         {
@@ -198,14 +196,8 @@ namespace Drunkard
                 this.AllSuit[j] = this.AllSuit[i];
                 this.AllSuit[i] = tmp;
             }           
-        }
-
-       // Karta karta;
-        
-    }
-
-    
-    
+        }        
+    }       
 }
 
 
