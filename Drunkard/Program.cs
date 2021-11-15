@@ -25,45 +25,104 @@ namespace Drunkard
         //    }
         //}
 
-        public static void Shuffle<T>(T[] arr) 
-        {
-            Random rand = new Random();
-
-            for (int i = arr.Length - 1; i >= 1; i--)
-            {
-                int j = rand.Next(i + 1);
-
-                T tmp = arr[j];
-                arr[j] = arr[i];
-                arr[i] = tmp;
-            }
-        }
-
         static void Main(string[] args)
         {
             DeckOfCards36 deckOfCards36 = new DeckOfCards36();
 
-            foreach (var item in deckOfCards36.AllSuitProperty)
+            DeckOfCards fillCard = deckOfCards36 as DeckOfCards;
+            fillCard.Shuffle();
+
+            //foreach (var item in fillCard.AllSuitProperty)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            Console.WriteLine(new string('-', 20));
+            Queue myQ = new Queue();
+            Queue myQ2 = new Queue();
+            
+            for (int i = 0; i < fillCard.AllSuitProperty.Count; i += 2)
             {
-                Console.WriteLine(item);
+                myQ.Enqueue(fillCard.AllSuitProperty[i]);
+                myQ2.Enqueue(fillCard.AllSuitProperty[i + 1]);
             }
-           
 
             Console.WriteLine(new string('-', 20));
 
-            //deckOfCards36.Shuffle(deckOfCards36.AllSuitProperty.ToArray());
+            foreach (var item in myQ)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine(new string('-', 20));
 
-            Karta[] arr = new Karta[36];
-            arr = deckOfCards36.AllSuitProperty.ToArray();
-
-            deckOfCards36.Shuffle(arr);
-
-            foreach (var item in arr)
+            foreach (var item in myQ2)
             {
                 Console.WriteLine(item);
             }
 
+            Karta[] arr = new Karta[2];
 
+            for (int i = 0; i < fillCard.AllSuitProperty.Count/2; i++)
+            {
+                arr[0] = myQ.Peek() as Karta;
+                arr[1] = myQ2.Peek() as Karta;
+
+                bool b = arr[0]._Equals(arr[1]);
+
+                if(b)
+                {
+                    myQ.Enqueue(myQ.Dequeue());
+                    myQ.Enqueue(myQ2.Dequeue());
+                }
+
+                else
+                {
+                    myQ2.Enqueue(myQ2.Dequeue());
+                    myQ2.Enqueue(myQ.Dequeue());
+                }
+            }
+
+            Console.WriteLine(new string('-', 20));
+
+            foreach (var item in myQ)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine(new string('-', 20));
+
+            foreach (var item in myQ2)
+            {
+                Console.WriteLine(item);
+            }
+
+            if(myQ.Count > myQ2.Count)
+                Console.WriteLine("Победил игрок 1");
+            else if (myQ.Count == myQ2.Count)
+                Console.WriteLine("Ничья");
+            else
+                Console.WriteLine("Победил игрок 2");
+
+
+            //foreach (var item in deckOfCards36.AllSuitProperty)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            //Console.WriteLine(new string('-', 20));
+
+
+
+            //deckOfCards36.Shuffle();
+
+            //foreach (var item in deckOfCards36.AllSuitProperty)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //deckOfCards36.Shuffle(deckOfCards36.AllSuitProperty.ToArray());
+
+            //Karta[] arr = new Karta[36];
+            // arr = deckOfCards36.AllSuitProperty.ToArray();
 
             //Karta[] arr = new Karta[36];
 
@@ -78,7 +137,7 @@ namespace Drunkard
 
             //deckOfCards36.Shuffle(arr);
 
-         
+
             //foreach (var item in deckOfCards36.AllSuitProperty)
             //{
             //    Console.WriteLine(item);

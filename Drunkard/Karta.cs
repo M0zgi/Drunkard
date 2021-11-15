@@ -23,7 +23,6 @@ namespace Drunkard
         King,
         Ace
     }
-
     enum SuitKart
     {
         Clubs,
@@ -31,12 +30,27 @@ namespace Drunkard
         Hearts,
         Spades
     }
-    interface IFillCard
+    interface DeckOfCards
     {
+        //создание колоды карт
         void FillCard();
+
+        //тусовка колоды
+        void Shuffle();
+        
+        //свой-во доступа к карте в колоде
+        List<Karta> AllSuitProperty { get; }
+
+       // bool _Equals(Karta karta);
     }
 
-    class Karta
+    interface OneKarta
+    {
+        //сравнение карт
+        bool _Equals(Karta karta);
+    }
+
+    class Karta: OneKarta
     {        
         public Karta(string name, string suit, int weihgt, int point)
         {
@@ -72,30 +86,39 @@ namespace Drunkard
             return $"Имя карты { _name}, Масть {_suit}, Количество очков {_point}";
         }
 
+        public bool _Equals(Karta karta)
+        {
+            if (this._weight == karta._weight)
+            {
+                Random random = new Random();
+                this._weight = random.Next(0, 100);
+                karta._weight = random.Next(0, 100);
+            }
+
+            if (this._weight > karta._weight)
+                return true;
+            else
+                return false;
+        }
     }
 
-    class DeckOfCards36: IFillCard
-
+    class DeckOfCards36: DeckOfCards
     {
         public DeckOfCards36()
         {
             this.FillCard();
         }
 
-        Karta karta;
-
         private List<Karta> AllSuit = new List<Karta>();
-
-        public List<Karta> AllSuitProperty { get => AllSuit; }
-       // public List<Karta> AllSuitPropertyS(Karta[] arr) { this.AllSuit = arr; }
+        public List<Karta> AllSuitProperty { get => AllSuit; }       
 
         public void FillCard()
         {
+            string suite = null;
             for (int i = 0; i < 9; i++)
             {
                 for (int j = 0; j < 4; j++)
-                {           
-                    string suite = null;
+                {  
                     if (j == 0)
                         suite = "(трефа)";
                     if (j == 1)
@@ -103,127 +126,90 @@ namespace Drunkard
                     if (j == 2)
                         suite = "(чирва)";
                     if (j == 3)
-                        suite = "(пика)";
-                     
+                        suite = "(пика)";                     
 
                     if (i == (int)NameKart.Six)
                     {                        
-                        karta = new Karta(Karta.NAME_6, suite, 6, 6);
+                        var karta = new Karta(Karta.NAME_6, suite, 6, 6);
                         AllSuit.Add(karta);                        
                     }
 
                     if (i == (int)NameKart.Seven)
                     {
-                        karta = new Karta(Karta.NAME_7, suite, 7, 7);
+                        var karta = new Karta(Karta.NAME_7, suite, 7, 7);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Eight)
                     {
-                        karta = new Karta(Karta.NAME_8, suite, 8, 8);
+                        var karta = new Karta(Karta.NAME_8, suite, 8, 8);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Nine)
                     {
-                        karta = new Karta(Karta.NAME_9, suite, 9, 9);
+                        var karta = new Karta(Karta.NAME_9, suite, 9, 9);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Ten)
                     {
-                        karta = new Karta(Karta.NAME_10, suite, 10, 10);
+                        var karta = new Karta(Karta.NAME_10, suite, 10, 10);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Jack)
                     {
-                        karta = new Karta(Karta.NAME_Jack, suite, 11, 2);
+                        var karta = new Karta(Karta.NAME_Jack, suite, 11, 2);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Queen)
                     {
-                        karta = new Karta(Karta.NAME_Queen, suite, 12, 3);
+                        var karta = new Karta(Karta.NAME_Queen, suite, 12, 3);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.King)
                     {
-                        karta = new Karta(Karta.NAME_King, suite, 13, 4);
+                        var karta = new Karta(Karta.NAME_King, suite, 13, 4);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Ace)
                     {
-                        karta = new Karta(Karta.NAME_Ace, suite, 15, 11);
+                        var karta = new Karta(Karta.NAME_Ace, suite, 15, 11);
                         AllSuit.Add(karta);
                     }
                 }
             }
-        }
+        }       
 
-        public void Arr(ref List<Karta> lst)
-        {
-            lst = this.AllSuit;
-        }
-
-        public override string ToString()
-        {
-            return $"Имя карты { karta._name}, Масть {karta._suit}, Количество очков {karta._point}";
-        }
-
-        //public void Shuffle<T>(T[] arr)
-        //{
-        //    Random rand = new Random();
-
-        //    for (int i = arr.Length - 1; i >= 1; i--)
-        //    {
-        //        int j = rand.Next(i + 1);
-
-        //        T tmp = arr[j];
-        //        arr[j] = arr[i];
-        //        arr[i] = tmp;
-        //    }
-        //}
-
-        ////рабочий вариант
-        //public void Shuffle<T>(T[] arr)
-        //{
-        //    Random rand = new Random();
-
-        //    for (int i = arr.Length - 1; i >= 1; i--)
-        //    {
-        //        int j = rand.Next(i + 1);
-
-        //        T tmp = arr[j];
-        //        arr[j] = arr[i];
-        //        arr[i] = tmp;
-        //    }
-
-        //    //AllSuit = arr as List<Karta>;
-        //}
-
+        //алгоритм сортировки массива в случайном порядке(методом Фишера – Йетса)
         public void Shuffle()
         {
             Random rand = new Random();
-
-            List<Karta> tmp = new List<Karta>();
-
-            for (int i = this.AllSuit.Count; i >= 1; i--)
+           
+            for (int i = this.AllSuit.Count - 1; i >= 1; i--)
             {
                 int j = rand.Next(i + 1);
 
-                tmp = this.AllSuit[j];
-                arr[j] = arr[i];
-                arr[i] = tmp;
-            }
-
-            //AllSuit = arr as List<Karta>;
+                var tmp = this.AllSuit[j];
+                this.AllSuit[j] = this.AllSuit[i];
+                this.AllSuit[i] = tmp;
+            }           
         }
+
+       // Karta karta;
+        
     }
+
+    
+    
 }
 
+
+//Karta karta;
 
 // //реализация заполнения колоды карт в двумерный массив и доступ к полям объекта класса
 // private Karta[,] AllSuit = new Karta[9, 4];
@@ -249,5 +235,31 @@ namespace Drunkard
 //            AllSuit[col, row] = value;
 //        else
 //            Console.WriteLine("Выход за пределы массива");
+//    }
+//}
+
+
+//public void Arr(ref List<Karta> lst)
+//{
+//    lst = this.AllSuit;
+//}
+
+//public override string ToString()
+//{
+//    return $"Имя карты { karta._name}, Масть {karta._suit}, Количество очков {karta._point}";
+//}
+
+////шаблонный вариант сортировки
+//public void Shuffle<T>(T[] arr)
+//{
+//    Random rand = new Random();
+
+//    for (int i = arr.Length - 1; i >= 1; i--)
+//    {
+//        int j = rand.Next(i + 1);
+
+//        T tmp = arr[j];
+//        arr[j] = arr[i];
+//        arr[i] = tmp;
 //    }
 //}
