@@ -9,6 +9,18 @@ namespace Drunkard
 {
     class Game 
     {
+        //координаты для вывода в консоли значений карт колоды
+        public int coordinationX1 { get; }
+        public int coordinationX2 { get; set; }
+        public int coordinationY{ get; set; }
+
+        public Game()
+        {
+            coordinationX1 = 0;
+            coordinationX2 = 60;
+            coordinationY = 0;
+        }
+        
         public void GameBegin()
         {
             //создаем игроков
@@ -34,10 +46,12 @@ namespace Drunkard
             fillCard.Shuffle();
 
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(coordinationX2, coordinationY);
             Console.WriteLine("Тусованная колода карт");
             Console.ResetColor();
             foreach (var item in fillCard.AllSuitProperty)
-            {
+            {                
+                Console.SetCursorPosition(coordinationX2, coordinationY += 1);
                 Console.WriteLine(item);
             }
 
@@ -55,10 +69,12 @@ namespace Drunkard
             Console.WriteLine(new string('-', 20));
 
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(coordinationX2, coordinationY += 2);
             Console.WriteLine($"Колода карт {player2.Name}");
             Console.ResetColor();
             foreach (var item in player2.PropertyQueue)
             {
+                Console.SetCursorPosition(coordinationX2, coordinationY += 1);
                 Console.WriteLine(item);
             }
 
@@ -78,18 +94,22 @@ namespace Drunkard
 
                 if (b)
                 {
-                    //удаляем первую карту игрока в очереди и ставим ее в конее очереди
+                    //удаляем первую карту игрока в очереди и ставим ее в конец очереди
                     player1.PropertyQueue.Enqueue(player1.PropertyQueue.Dequeue());
                     //удаляем первую карту игрока 2 в очереди и ставим ее в конец очереди игроку 1
                     player1.PropertyQueue.Enqueue(player2.PropertyQueue.Dequeue());
+                    //увеличиваем кол-во очков у игрока по значениям очков выигранных карт
+                    player1.Score += arr[0]._point + arr[1]._point;
                 }
 
                 else
                 {
-                    //удаляем первую карту игрока 2 в очереди и ставим ее в конее очереди
+                    //удаляем первую карту игрока 2 в очереди и ставим ее в конец очереди
                     player2.PropertyQueue.Enqueue(player2.PropertyQueue.Dequeue());
                     //удаляем первую карту игрока 1 в очереди и ставим ее в конец очереди игроку 2
                     player2.PropertyQueue.Enqueue(player1.PropertyQueue.Dequeue());
+                    //увеличиваем кол-во очков у игрока по значениям очков выигранных карт
+                    player2.Score += arr[0]._point + arr[1]._point;
                 }
             }
 
@@ -104,23 +124,26 @@ namespace Drunkard
             Console.WriteLine(new string('-', 20));
 
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(coordinationX2, coordinationY += 2);
             Console.WriteLine($"Колода карт после игры у {player2.Name} : {player2.PropertyQueue.Count}");
             Console.ResetColor();
 
             foreach (var item in player2.PropertyQueue)
             {
+                Console.SetCursorPosition(coordinationX2, coordinationY += 1);
                 Console.WriteLine(item);
             }
 
             Console.Write("\n");
 
             Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(coordinationX1 + 20, coordinationY += 14);
             Console.Write("Результат: ");
-            
+
             if (player1.PropertyQueue.Count > player2.PropertyQueue.Count)
             {
-                player1.Score += 1;
-                Console.WriteLine($"Победил игрок {player1.Name}, Кол-во очков: {player1.Score}");                
+                player1.Winner++;
+                Console.WriteLine($"Победил игрок {player1.Name}, Кол-во карточных очков: {player1.Score}, Кол-во побед: {player1.Winner}");                
             }
 
             else if (player1.PropertyQueue.Count == player2.PropertyQueue.Count)
@@ -130,8 +153,8 @@ namespace Drunkard
 
             else
             {
-                player2.Score += 1;
-                Console.WriteLine($"Победил игрок {player2.Name}, Кол-во очков: {player2.Score}");
+                player2.Winner++;
+                Console.WriteLine($"Победил игрок {player2.Name}, Кол-во карточных очков: {player2.Score}, Кол-во побед: {player2.Winner}");
             }
             Console.ResetColor();           
         }        

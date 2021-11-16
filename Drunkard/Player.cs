@@ -9,22 +9,26 @@ namespace Drunkard
 {
     interface IPlayer
     {       
-        string Name { get; }
+        string Name { get; set; }
         int Score { get; set; }
+        int Winner { get; set; }
     }
     class Player : IPlayer
     {
-        public Player(string name, int score = 0) 
+        public Player(string name, int score = 0, int winner = 0) 
         {
             _name = name;
             _score = score;
+            _winner = winner;
         }        
        
-        public string Name { get => _name; }
-        public int Score { get => _score; set { _score = value; } }        
-       
+        public string Name { get => _name; set { _name = value; } }
+        public int Score { get => _score; set { _score = value; } }
+        public int Winner { get => _winner; set { _winner = value; } }
+
         private string _name;
         private int _score;
+        private int _winner;
 
         public Queue PropertyQueue { get; set; }
 
@@ -42,6 +46,6 @@ namespace Drunkard
 
             this.PropertyQueue = myQ;
             player2.PropertyQueue = myQ2;
-        }
+        }           
     }
 }

@@ -102,9 +102,13 @@ namespace Drunkard
 
     class DeckOfCards36: IDeckOfCards
     {
+
+        private const int AMOUNT_NAME_KART = 9;
+        private const int AMOUNT_SUIT = 4;
+        
         public DeckOfCards36()
         {
-            this.FillCard();
+            this.FillCard();         
         }
 
         private List<Karta> AllSuit = new List<Karta>();
@@ -113,9 +117,9 @@ namespace Drunkard
         public void FillCard()
         {
             string suite = null;
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < AMOUNT_NAME_KART; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < AMOUNT_SUIT; j++)
                 {  
                     if (j == 0)
                         suite = "(трефа)";
