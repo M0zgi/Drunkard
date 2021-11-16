@@ -32,7 +32,7 @@ namespace Drunkard
 
         public Queue PropertyQueue { get; set; }
 
-        //раздача карт на руки каждому игрокуы
+        //раздача карт на руки каждому игроку
         public void QueueOfKatrs(Player player2, IDeckOfCards deckofcards)
         {
             Queue myQ = new Queue();
