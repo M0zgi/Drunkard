@@ -30,6 +30,31 @@ namespace Drunkard
         Hearts,
         Spades
     }
+    enum PointKart
+    {
+        Six = 6,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Jack = 2,
+        Queen,
+        King,
+        Ace = 11
+    }
+
+    enum WeihgtKart
+    {
+        Six=6,
+        Seven,
+        Eight,
+        Nine,
+        Ten,
+        Jack,
+        Queen,
+        King,
+        Ace
+    }
     interface IDeckOfCards
     {
         //создание колоды карт
@@ -69,16 +94,38 @@ namespace Drunkard
         //количество очков
         public int _point { get; set; }
 
-        static public string NAME_6 { get => "Шестерка"; }
-        static public string NAME_7 { get => "Семерка"; }
-        static public string NAME_8 { get => "Восьмерка"; }
-        static public string NAME_9 { get => "Девятка"; }
-        static public string NAME_10 { get => "Десятка"; }
-        static public string NAME_Jack { get => "Валет"; }
-        static public string NAME_Queen { get => "Дама"; }
-        static public string NAME_King { get => "Король"; }
-        static public string NAME_Ace { get => "Туз"; }      
+        //static public string NAME_6 { get => "Шестерка"; }
+        //static public string NAME_7 { get => "Семерка"; }
+        //static public string NAME_8 { get => "Восьмерка"; }
+        //static public string NAME_9 { get => "Девятка"; }
+        //static public string NAME_10 { get => "Десятка"; }
+        //static public string NAME_Jack { get => "Валет"; }
+        //static public string NAME_Queen { get => "Дама"; }
+        //static public string NAME_King { get => "Король"; }
+        //static public string NAME_Ace { get => "Туз"; }
+        //
+        public static readonly string NAME_6;
+        public static readonly string NAME_7;
+        public static readonly string NAME_8;
+        public static readonly string NAME_9;
+        public static readonly string NAME_10;
+        public static readonly string NAME_Jack;
+        public static readonly string NAME_Queen;
+        public static readonly string NAME_King;
+        public static readonly string NAME_Ace;
 
+        static Karta()
+        {
+            NAME_6 = "Шестерка";
+            NAME_7 = "Семерка";
+            NAME_8 = "Восьмерка";
+            NAME_9 = "Девятка";
+            NAME_10 = "Десятка";
+            NAME_Jack = "Валет";
+            NAME_Queen = "Дама";
+            NAME_King = "Король";
+            NAME_Ace = "Туз";
+        }
         public override string ToString()
         {
             return $"Имя карты { _name}, Масть {_suit}, Количество очков {_point}";
@@ -102,9 +149,11 @@ namespace Drunkard
 
     class DeckOfCards36: IDeckOfCards
     {
+        //кол-во различных наименований карт в колоде
+        private int AMOUNT_NAME_KART = Enum.GetNames(typeof(NameKart)).Length;//9
 
-        private const int AMOUNT_NAME_KART = 9;
-        private const int AMOUNT_SUIT = 4;
+        //кол-во мастей в колоде
+        private int AMOUNT_SUIT = Enum.GetNames(typeof(SuitKart)).Length;//4
         
         public DeckOfCards36()
         {
@@ -116,7 +165,9 @@ namespace Drunkard
 
         public void FillCard()
         {
+            //suite - масть карты
             string suite = null;
+           
             for (int i = 0; i < AMOUNT_NAME_KART; i++)
             {
                 for (int j = 0; j < AMOUNT_SUIT; j++)
@@ -132,55 +183,55 @@ namespace Drunkard
 
                     if (i == (int)NameKart.Six)
                     {                        
-                        var karta = new Karta(Karta.NAME_6, suite, 6, 6);
+                        var karta = new Karta(Karta.NAME_6, suite, (int)WeihgtKart.Six, (int)PointKart.Six);
                         AllSuit.Add(karta);                        
                     }
 
                     if (i == (int)NameKart.Seven)
                     {
-                        var karta = new Karta(Karta.NAME_7, suite, 7, 7);
+                        var karta = new Karta(Karta.NAME_7, suite, (int)WeihgtKart.Seven, (int)PointKart.Seven);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Eight)
                     {
-                        var karta = new Karta(Karta.NAME_8, suite, 8, 8);
+                        var karta = new Karta(Karta.NAME_8, suite, (int)WeihgtKart.Eight, (int)PointKart.Eight);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Nine)
                     {
-                        var karta = new Karta(Karta.NAME_9, suite, 9, 9);
+                        var karta = new Karta(Karta.NAME_9, suite, (int)WeihgtKart.Nine, (int)PointKart.Nine);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Ten)
                     {
-                        var karta = new Karta(Karta.NAME_10, suite, 10, 10);
+                        var karta = new Karta(Karta.NAME_10, suite, (int)WeihgtKart.Ten, (int)PointKart.Ten);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Jack)
                     {
-                        var karta = new Karta(Karta.NAME_Jack, suite, 11, 2);
+                        var karta = new Karta(Karta.NAME_Jack, suite, (int)WeihgtKart.Jack, (int)PointKart.Jack);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Queen)
                     {
-                        var karta = new Karta(Karta.NAME_Queen, suite, 12, 3);
+                        var karta = new Karta(Karta.NAME_Queen, suite, (int)WeihgtKart.Queen, (int)PointKart.Queen);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.King)
                     {
-                        var karta = new Karta(Karta.NAME_King, suite, 13, 4);
+                        var karta = new Karta(Karta.NAME_King, suite, (int)WeihgtKart.King, (int)PointKart.King);
                         AllSuit.Add(karta);
                     }
 
                     if (i == (int)NameKart.Ace)
                     {
-                        var karta = new Karta(Karta.NAME_Ace, suite, 15, 11);
+                        var karta = new Karta(Karta.NAME_Ace, suite, (int)WeihgtKart.Ace, (int)PointKart.Ace);
                         AllSuit.Add(karta);
                     }
                 }
